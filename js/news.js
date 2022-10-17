@@ -36,16 +36,42 @@ const displayNews = (allNews) => {
     for (const news of allNews) {
         console.log(news);
         const newsDiv = document.createElement("div");
-        newsDiv.classList.add("row");
+        newsDiv.classList.add("row", "border", "p-3", "mb-5", "bg-light");
+
+
         newsDiv.innerHTML = `
         <div class="col-md-4">
             <img src=${news.image_url} class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
-           <div class="card-body">
-               <h5 class="card-title">${news.title}</h5>
-               <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.p>
-               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+           <div class="card-body px-2">
+               <h5 class="card-title mb-3 mt-1">${news.title}</h5>
+               <p class="fst-norma">${news.details.slice(0, 200)}.</p>
+               <p>${news.details.slice(200, 300)}....see more.</p>
+
+               <div class="d-flex align-items-center justify-content-between text-muted">
+                   <div class="d-flex align-items-center">
+                     <img src=${news.author.img} width="50" height="50" class="rounded-circle align-items-center">
+                     <div class="px-2 ">
+                       <span class="fw-semibold">${news.author.name}</span><br>
+                       <span>${news.author.published_date}</span>
+                     </div>
+                   </div>
+                   <div>
+                      <span class="fw-semibold"><i class="fa-solid fa-eye mx-1"></i> ${news.total_view}M </span>
+                   </div>
+                   <div>
+                   <span><i class="fa-solid fa-star"></i></span>
+                   <span><i class="fa-solid fa-star"></i></span>
+                   <span><i class="fa-solid fa-star"></i></span>
+                   <span><i class="fa-solid fa-star"></i></span>
+                   <i class="fa-regular fa-star-half-stroke"></i>
+                   </div>
+
+                   <div>
+                   <span><i class="fa-solid fa-arrow-right text-primary"></i><span>
+                   </div>
+               </div>
             </div>
         </div>
         
@@ -55,7 +81,7 @@ const displayNews = (allNews) => {
     }
 }
 
-// loadNews();
+loadNews('01');
 
 
 
