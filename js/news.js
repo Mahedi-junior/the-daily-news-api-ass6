@@ -80,7 +80,7 @@ const displayNews = (allNews) => {
                      </div>
                    </div>
                    <div class="">
-                      <span class="fw-semibold"><i class="fa-solid fa-eye mx-1"></i> ${news.total_view ? news.total_view : "no data"}M </span>
+                      <span class="fw-semibold d-none d-sm-block"><i class="fa-solid fa-eye mx-1"></i> ${news.total_view ? news.total_view : "no data"}M </span>
                    </div>
                    <div class="d-none d-sm-block">
                    <span><i class="fa-solid fa-star"></i></span>
