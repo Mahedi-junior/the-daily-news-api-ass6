@@ -20,9 +20,15 @@ const displayCategory = categories => {
         categoriesContainer.appendChild(ulDiv);
 
     });
+    // start spinner
+    toggleSpinner(true)
+
 }
 
+loadCategory();
+
 const loadNews = async (id) => {
+
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     const res = await fetch(url);
     const data = await res.json();
@@ -30,6 +36,7 @@ const loadNews = async (id) => {
 }
 
 const displayNews = (allNews) => {
+
     console.log(allNews.length);
 
     // no news found
@@ -47,8 +54,6 @@ const displayNews = (allNews) => {
         console.log(news);
         const newsDiv = document.createElement("div");
         newsDiv.classList.add("row", "border", "p-3", "mb-5", "bg-white");
-
-
         newsDiv.innerHTML = `
         <div class="col-md-4">
             <img src=${news.image_url} class="img-fluid rounded-start" alt="...">
@@ -87,13 +92,22 @@ const displayNews = (allNews) => {
         
         `;
         newsContainer.appendChild(newsDiv);
-
     }
+    //  stop spinner
+    toggleSpinner(false);
 }
 
 loadNews('01');
 
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById("spinner");
+    if (isLoading) {
+        loaderSection.classList.remove("d-none");
+    }
+    else {
+        loaderSection.classList.add("d-none")
+    }
+}
 
 
-
-loadCategory();
+// loadCategory();
