@@ -23,7 +23,6 @@ const displayCategory = categories => {
 
     });
     // start spinner
-
 }
 
 loadCategory();
@@ -38,10 +37,13 @@ const loadNews = async (id) => {
     // spinner
 }
 
-
 const displayNews = (allNews) => {
     // -------------------------
-    // console.log(allNews.length);
+    console.log(allNews);
+    const categoryLength = document.getElementById("categories-length");
+    categoryLength.innerHTML = `
+    <h3><span class="text-primary">${allNews.length}</span> items found for category Entertainment</h3>
+    `
 
     // no news found
     const noNews = document.getElementById("no-news-found");
@@ -77,10 +79,10 @@ const displayNews = (allNews) => {
                        <span>${news.author.published_date}</span>
                      </div>
                    </div>
-                   <div>
-                      <span class="fw-semibold"><i class="fa-solid fa-eye mx-1"></i> ${news.total_view}M </span>
+                   <div class="">
+                      <span class="fw-semibold"><i class="fa-solid fa-eye mx-1"></i> ${news.total_view ? news.total_view : "no data"}M </span>
                    </div>
-                   <div>
+                   <div class="d-none d-sm-block">
                    <span><i class="fa-solid fa-star"></i></span>
                    <span><i class="fa-solid fa-star"></i></span>
                    <span><i class="fa-solid fa-star"></i></span>
@@ -91,7 +93,7 @@ const displayNews = (allNews) => {
                    <div>
                    <span><i class="fa-solid fa-arrow-right text-primary mx-2"></i><span>
 
-                   <button onclick="loadNewsDetails('${news._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal">details</button>
+                   <button onclick="loadNewsDetails('${news._id}')" class="btn btn-primary px-4 fs-4 py-1" data-bs-toggle="modal" data-bs-target="#newsDetailModal">details</button>
                    </div>
                </div>
             </div>
@@ -127,6 +129,17 @@ const loadNewsDetails = async id => {
 
 const displayNewsDetails = news => {
     console.log(news);
+    const title = document.getElementById("newsDetailModalLabel");
+    const newsDetails = document.getElementById("newsDetails");
+    newsDetails.innerHTML = `
+    <h3>author: ${news.author.name ? news.author.name : "No found Name"}</h3>
+    <img src="${news.author.img}"width="300" height="300">
+    <h4>badge: ${news.rating.badge}</h4>
+    <h4>ratting: ${news.rating.number}</h4>
+    <h4>publish: ${news.author.published_date}</h4>
+    <h4>View: ${news.total_view ? news.total_view : "no found data"}M</h4>
+    
+    `
 }
 
 // loadCategory();
