@@ -6,12 +6,14 @@ const loadCategory = async () => {
 }
 
 const displayCategory = categories => {
+
     // console.log(categories.length);
     const categoriesContainer = document.getElementById("categories-container");
     categories.forEach(category => {
         // console.log(category);
         const ulDiv = document.createElement("ul");
         ulDiv.classList.add("navbar-nav");
+
         ulDiv.innerHTML = `
         <li class="mx-2 fs-5 p-2 fw-semibold">
         <a onclick="loadNews('${category.category_id}')" class="nav-link" href="#">${category.category_name}</a>
@@ -21,23 +23,25 @@ const displayCategory = categories => {
 
     });
     // start spinner
-    toggleSpinner(true)
 
 }
 
 loadCategory();
 
 const loadNews = async (id) => {
+    toggleSpinner(true);
 
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     const res = await fetch(url);
     const data = await res.json();
     displayNews(data.data);
+    // spinner
 }
 
-const displayNews = (allNews) => {
 
-    console.log(allNews.length);
+const displayNews = (allNews) => {
+    // -------------------------
+    // console.log(allNews.length);
 
     // no news found
     const noNews = document.getElementById("no-news-found");
@@ -51,7 +55,8 @@ const displayNews = (allNews) => {
     const newsContainer = document.getElementById("news-container");
     newsContainer.innerHTML = '';
     for (const news of allNews) {
-        console.log(news);
+
+        // console.log(news);
         const newsDiv = document.createElement("div");
         newsDiv.classList.add("row", "border", "p-3", "mb-5", "bg-white");
         newsDiv.innerHTML = `
@@ -84,7 +89,9 @@ const displayNews = (allNews) => {
                    </div>
 
                    <div>
-                   <span><i class="fa-solid fa-arrow-right text-primary"></i><span>
+                   <span><i class="fa-solid fa-arrow-right text-primary mx-2"></i><span>
+
+                   <button onclick="loadNewsDetails('${news._id}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsDetailModal">details</button>
                    </div>
                </div>
             </div>
@@ -97,7 +104,7 @@ const displayNews = (allNews) => {
     toggleSpinner(false);
 }
 
-loadNews('01');
+// loadNews('01');
 
 const toggleSpinner = isLoading => {
     const loaderSection = document.getElementById("spinner");
@@ -109,5 +116,17 @@ const toggleSpinner = isLoading => {
     }
 }
 
+loadNews('01');
+
+const loadNewsDetails = async id => {
+    const url = `https://openapi.programming-hero.com/api/news/${id}`
+    const res = await fetch(url);
+    const data = await res.json();
+    displayNewsDetails(data.data[0]);
+}
+
+const displayNewsDetails = news => {
+    console.log(news);
+}
 
 // loadCategory();
