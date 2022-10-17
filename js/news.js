@@ -6,7 +6,7 @@ const loadCategory = async () => {
 }
 
 const displayCategory = categories => {
-    // console.log(categories);
+    // console.log(categories.length);
     const categoriesContainer = document.getElementById("categories-container");
     categories.forEach(category => {
         // console.log(category);
@@ -30,13 +30,23 @@ const loadNews = async (id) => {
 }
 
 const displayNews = (allNews) => {
+    console.log(allNews.length);
+
+    // no news found
+    const noNews = document.getElementById("no-news-found");
+    if (allNews.length === 0) {
+        noNews.classList.remove("d-none")
+    }
+    else {
+        noNews.classList.add("d-none")
+    }
+
     const newsContainer = document.getElementById("news-container");
     newsContainer.innerHTML = '';
-
     for (const news of allNews) {
         console.log(news);
         const newsDiv = document.createElement("div");
-        newsDiv.classList.add("row", "border", "p-3", "mb-5", "bg-light");
+        newsDiv.classList.add("row", "border", "p-3", "mb-5", "bg-white");
 
 
         newsDiv.innerHTML = `
@@ -53,7 +63,7 @@ const displayNews = (allNews) => {
                    <div class="d-flex align-items-center">
                      <img src=${news.author.img} width="50" height="50" class="rounded-circle align-items-center">
                      <div class="px-2 ">
-                       <span class="fw-semibold">${news.author.name}</span><br>
+                       <span class="fw-semibold">${news.author.name ? news.author.name : "No found Name"}</span><br>
                        <span>${news.author.published_date}</span>
                      </div>
                    </div>
